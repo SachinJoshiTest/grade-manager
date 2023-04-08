@@ -3,22 +3,17 @@ import {
   Box,
   Button,
   Card,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  FormHelperText,
+  Checkbox, FormControlLabel,
+  FormHelperText
 } from "@mui/material";
 import {
-  SocialIconButton,
-  TextFieldWrapper,
+  TextFieldWrapper
 } from "components/authentication/StyledComponents";
 import FlexBox from "components/FlexBox";
 import LightTextField from "components/LightTextField";
-import { H1, H3, Small } from "components/Typography";
+import { H1, Small } from "components/Typography";
 import { useFormik } from "formik";
 import useAuth from "hooks/useAuth";
-import FacebookIcon from "icons/FacebookIcon";
-import GoogleIcon from "icons/GoogleIcon";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,6 +28,7 @@ const Register: FC = () => {
   const initialValues = {
     name: "",
     email: "",
+    username: "",
     password: "",
     terms: true,
     submit: null,
@@ -44,6 +40,7 @@ const Register: FC = () => {
       .email("Must be a valid email")
       .max(255)
       .required("Email is required"),
+    username: Yup.string().required("Username is required"),
     password: Yup.string()
       .min(6, "Password should be of minimum 6 characters length")
       .required("Password is required"),
@@ -92,25 +89,6 @@ const Register: FC = () => {
         </FlexBox>
 
         <FlexBox justifyContent="space-between" flexWrap="wrap" my="1rem">
-          <SocialIconButton
-            // onClick={loginWithGoogle}
-            startIcon={<GoogleIcon sx={{ mr: "0.5rem" }} />}
-          >
-            Sign up with Google
-          </SocialIconButton>
-          <SocialIconButton
-            // onClick={loginWithFacebook}
-            startIcon={<FacebookIcon sx={{ mr: "0.5rem" }} />}
-          >
-            Sign up with Facebook
-          </SocialIconButton>
-
-          <Divider sx={{ my: 3, width: "100%", alignItems: "flex-start" }}>
-            <H3 color="text.disabled" px={1}>
-              Or
-            </H3>
-          </Divider>
-
           <form noValidate onSubmit={handleSubmit} style={{ width: "100%" }}>
             <FlexBox justifyContent="space-between" flexWrap="wrap">
               <TextFieldWrapper>
@@ -141,6 +119,20 @@ const Register: FC = () => {
                 />
               </TextFieldWrapper>
             </FlexBox>
+
+            <TextFieldWrapper sx={{ mt: 2, width: "100%" }}>
+                <LightTextField
+                  fullWidth
+                  name="username"
+                  type="text"
+                  label="username"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.username || ""}
+                  error={Boolean(touched.username && errors.username)}
+                  helperText={touched.username && errors.username}
+                />
+              </TextFieldWrapper>
 
             <TextFieldWrapper sx={{ mt: 2, width: "100%" }}>
               <LightTextField

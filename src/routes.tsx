@@ -17,9 +17,6 @@ const Login = Loadable(lazy(() => import("./pages/authentication/Login")));
 const Register = Loadable(
   lazy(() => import("./pages/authentication/Register"))
 );
-const ForgetPassword = Loadable(
-  lazy(() => import("./pages/authentication/ForgetPassword"))
-);
 
 // Dashboard pages
 const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
@@ -27,15 +24,9 @@ const DashboardSaaS = Loadable(lazy(() => import("./pages/dashboards/SaaS")));
 // user profile
 const UserProfile = Loadable(lazy(() => import("./pages/UserProfile")));
 
-// user management
-const UserList = Loadable(
-  lazy(() => import("./pages/userManagement/UserList"))
-);
-const UserGrid = Loadable(
-  lazy(() => import("./pages/userManagement/UserGrid"))
-);
-const AddNewUser = Loadable(
-  lazy(() => import("./pages/userManagement/AddNewUser"))
+// Integration management
+const Integrations = Loadable(
+  lazy(() => import("./pages/integrations/Integration"))
 );
 
 const TaskPriority = Loadable(
@@ -70,14 +61,6 @@ const routes = [
     ),
   },
   {
-    path: "forget-password",
-    element: (
-      <GuestGuard>
-        <ForgetPassword />
-      </GuestGuard>
-    ),
-  },
-  {
     path: "dashboard",
     element: (
       <AuthGuard>
@@ -95,11 +78,7 @@ const routes = [
       },
       {
         path: "integrations",
-        element: <UserGrid />,
-      },
-      {
-        path: "add-user",
-        element: <AddNewUser />,
+        element: <Integrations />,
       },
       {
         path: "task-priority",
