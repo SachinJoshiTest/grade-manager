@@ -6,11 +6,9 @@ import TotalSpent from "components/Dashboards/saas/TotalSpent";
 import FlexBox from "components/FlexBox";
 import { H4, H6, Small } from "components/Typography";
 import useTitle from "hooks/useTitle";
-import BucketIcon from "icons/BucketIcon";
 import EarningIcon from "icons/EarningIcon";
-import PeopleIcon from "icons/PeopleIcon";
-import WindowsLogoIcon from "icons/WindowsLogoIcon";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+
 
 // styled components
 const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({
@@ -25,37 +23,35 @@ const IconWrapper = styled(Box)<{ color?: string }>(({ theme, color }) => ({
 }));
 
 const SaaS: FC = () => {
+
+  const [cardList, setCardList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/term")
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract the courses array from the response and map it to the format expected by the card component
+        const courses = data.courses.map((course: any) => {
+          return {
+            price: course.gradingTasks.progressScore,
+            Icon: EarningIcon,
+            title: course.courseName,
+            color: theme.palette.primary.red
+            
+          };
+        });
+
+        // Set the cardList state with the mapped courses array
+        setCardList(courses);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+
   // change navbar title
   useTitle("GradeScoreImprover");
 
   const theme = useTheme();
-
-  const cardList = [
-    {
-      price: "A",
-      Icon: BucketIcon,
-      title: "AP MicroEconomics",
-      color: theme.palette.primary.main,
-    },
-    {
-      price: "A-",
-      title: "Honors Precalculus",
-      Icon: EarningIcon,
-      color: theme.palette.primary.purple,
-    },
-    {
-      price: "B",
-      Icon: WindowsLogoIcon,
-      title: "Honors English",
-      color: theme.palette.primary.red,
-    },
-    {
-      price: "C",
-      Icon: PeopleIcon,
-      title: "Data Science",
-      color: theme.palette.primary.yellow,
-    },
-  ];
 
   return (
     <Box pt={2} pb={4}>
