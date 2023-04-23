@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { H5, Small } from "components/Typography";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ScrollBar from "simplebar-react";
 
 const commonCSS = {
@@ -39,6 +39,28 @@ const BodyTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const RecentOrders: FC = () => {
+  const [orderList, setOrderList] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/upcomingassignment")
+      .then((response) => response.json())
+      .then((data) => {
+        // Extract the courses array from the response and map it to the format expected by the card component
+        const assignments = data.map((assignment: any) => {
+          return {
+            orderNo: assignment.assignmentnumber,
+            name: assignment.subject,
+            price: assignment.portal,
+            totalOrder: assignment.priority,
+            colorCode: (assignment.priority == "high" ? "#FF0000" : assignment.priority == "med" ? "#c7701e" : "#4BB543"),
+          };
+        });
+
+        // Set the cardList state with the mapped courses array
+        setOrderList(assignments);
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <Card sx={{ padding: "2rem" }}>
       <H5>Upcoming Assignment</H5>
@@ -57,7 +79,7 @@ const RecentOrders: FC = () => {
           </TableHead>
 
           <TableBody>
-            {orderList.map((item, index) => (
+            {orderList.map((item: any, index) => (
               <TableRow key={index}>
                 <BodyTableCell>{item.orderNo}</BodyTableCell>
                 <BodyTableCell>
@@ -88,36 +110,5 @@ const RecentOrders: FC = () => {
     </Card>
   );
 };
-
-const orderList = [
-  {
-    orderNo: "1",
-    name: "AP MicroEconomics",
-    price: "Canvas",
-    totalOrder: "low",
-    colorCode: "#106913",
-  },
-  {
-    orderNo: "2",
-    name: "Honors Precalculus",
-    price: "Canvas",
-    totalOrder: "med",
-    colorCode: "#c7701e",
-  },
-  {
-    orderNo: "3",
-    name: "Honors English",
-    price: "Google classroom",
-    totalOrder: "high",
-    colorCode: "#ab1611",
-  },
-  {
-    orderNo: "4",
-    name: "Data Science",
-    price: "Unity",
-    totalOrder: "high",
-    colorCode: "#ab1611",
-  },
-];
 
 export default RecentOrders;

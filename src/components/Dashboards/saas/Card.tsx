@@ -43,6 +43,7 @@ const SaaSCard: FC<SaaSCardProps> = ({ card }) => {
         <Icon sx={{ color }} />
       </Box>
       <Box mt={{ xs: "1rem", sm: 0 }}>
+        
         <H5 color="text.disabled">{title}</H5>
         <H3>{price}</H3>
       </Box>
