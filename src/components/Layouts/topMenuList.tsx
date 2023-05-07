@@ -17,11 +17,6 @@ const index = [
     path: "/dashboard/integrations",
   },
   {
-    title: "Prioritazation Formula",
-    Icon: Icons.AddUserIcon,
-    path: "/dashboard/task-priority",
-  },
-  {
     title: "Goal Settings",
     Icon: Icons.GoalIcon,
     path: "/dashboard/goal-setting",
