@@ -22,7 +22,7 @@ const GoalSetting: FC = () => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]); // add a new state for selected values
 
   useEffect(() => {
-    fetch("http://localhost:8080/term")
+    fetch("http://18.219.122.140:8080/term")
       .then((response) => response.json())
       .then((data) => {
         // Extract the courses array from the response and map it to the format expected by the card component

@@ -42,7 +42,7 @@ const RecentOrders: FC = () => {
   const [orderList, setOrderList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/upcomingassignment")
+    fetch("http://18.219.122.140:8080/upcomingassignment")
       .then((response) => response.json())
       .then((data) => {
         // Extract the courses array from the response and map it to the format expected by the card component
