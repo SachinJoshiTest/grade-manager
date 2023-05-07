@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
 import Mock from "__fakeApi__/mock";
+import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "jwt_secret_key";
 const JWT_VALIDITY = "7 days";
@@ -8,7 +8,7 @@ const userList = [
   {
     id: 1,
     role: "SA",
-    name: "Omkar Gadekar",
+    name: "Omkar Gadewar",
     username: "jason_alexander",
     email: "demo@example.com",
     avatar: "/static/avatar/001-man.svg",
