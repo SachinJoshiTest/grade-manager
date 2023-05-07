@@ -54,7 +54,7 @@ const GoalSetting: FC = () => {
 
     const goal = selectedValues[index];
      // Send POST request to API endpoint
-    fetch("http://localhost:8080/setGoal", {
+    fetch("http://18.219.122.140:8080/setGoal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

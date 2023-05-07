@@ -27,7 +27,7 @@ const SaaS: FC = () => {
   const [cardList, setCardList] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/term")
+    fetch("http://18.219.122.140:8080/term")
       .then((response) => response.json())
       .then((data) => {
         // Extract the courses array from the response and map it to the format expected by the card component
